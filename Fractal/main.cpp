@@ -15,8 +15,8 @@ int main(int, char**)
 		return 1;
 	}
 
-	//Creare a 800x800 window with the title Mandelbrot
-	SDL_Window *window = SDL_CreateWindow("Mandlebrot", 100, 100, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+	//Creare a 800x800 window with the title Fractal
+	SDL_Window *window = SDL_CreateWindow("Fractal", 100, 100, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	if (window == nullptr) {
 		//Print out error if this fails
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -37,8 +37,8 @@ int main(int, char**)
 	Uint32 * pixels = NULL;
 	//the pitch is the width of the texture in bytes
 	int pitch;
-	//Create a texture 
-	SDL_Texture * mandlebrotTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, windowWidth, windowHeight);
+	//Create a texture, STREAMING means that we will update the texture 
+	SDL_Texture * fractalTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, windowWidth, windowHeight);
 	//Get the pixel format the texture
 	SDL_PixelFormat * pixelFormat = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
 
@@ -66,7 +66,7 @@ int main(int, char**)
 
 		
 		//do drawing here
-		SDL_LockTexture(mandlebrotTexture, NULL, (void**)&pixels, &pitch);
+		SDL_LockTexture(fractalTexture, NULL, (void**)&pixels, &pitch);
 
 
 
@@ -80,7 +80,7 @@ int main(int, char**)
 
 				unsigned int pixelPosition = pixelY * (pitch / pixelFormat->BytesPerPixel) + pixelX;
 
-				// TODO: implement the algorithm to colour a single pixel (x0, y0) of the Mandelbrot set fractal
+				// TODO: implement the algorithm to colour a single pixel (x0, y0) of the fractal
 				// The code below simply fills the screen with random pixels
 
 				// Write the pixel
@@ -91,9 +91,9 @@ int main(int, char**)
 			}
 		}
 
-		SDL_UnlockTexture(mandlebrotTexture);
+		SDL_UnlockTexture(fractalTexture);
 		
-		SDL_RenderCopy(renderer, mandlebrotTexture, NULL, NULL);
+		SDL_RenderCopy(renderer, fractalTexture, NULL, NULL);
 		//Display the work the renderer has been doing, this make something appear on the screen
 
 
@@ -102,7 +102,7 @@ int main(int, char**)
 
 	//cleanup!
 	SDL_FreeFormat(pixelFormat);
-	SDL_DestroyTexture(mandlebrotTexture);
+	SDL_DestroyTexture(fractalTexture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
