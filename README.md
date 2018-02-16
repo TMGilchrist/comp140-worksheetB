@@ -34,7 +34,9 @@ A computer chair (must have forward/backwards tilt, rotation, back adjustment) w
 * Spinning the chair will control sideways movement.
 * Some form of thumbstick for 360 degree aiming and shooting. (Possible alternative below)
 * Back adjustment used to engage shield boost.
+* It will probably require at least one accelerometer.
 
 ### Alternatives
-* Alternative co-op would use a second chair to control the weapons aiming and firing.
+* Alternative co-op would use a second chair to control the weapons aiming and firing. The weapon chairs would need a way to see the screen while spinning.
 * Arm-rests controls to strafe? Spin chair 360 degrees to dodge.
+
