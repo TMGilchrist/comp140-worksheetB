@@ -78,28 +78,33 @@ int main(int, char**)
 		//do drawing here
 		SDL_LockTexture(fractalTexture, NULL, (void**)&pixels, &pitch);
 
+		//X and Y values
 		double currentX;
 		double currentY;
 		double nextX;
 		double nextY;
 
+		//Number of iterations of fractal algorithm
+		const int iterations = 50;
 
-		std::cout << "Begin looping over screen pixels";
+		//Define colours
+		int r = 255;
+		int g = 0;
+		int b = 0;
+
+		Uint32 black = SDL_MapRGB(pixelFormat, 0, 0, 0);
+
 
 		//Iterate over all the pixels on the screen
 		for (int pixelY = 0; pixelY < windowHeight; pixelY++) 
 		{
-			// TODO: Map the y coordinate into the range minY to maxY
-			double y0 = ((double)pixelY / (double)windowWidth) * (maxY - minY) + minY;
+			// Map the y coordinate into the range minY to maxY
+			double y0 = (pixelY / (double)windowWidth) * (maxY - minY) + minY;
 
 			for (int pixelX = 0; pixelX < windowWidth; pixelX++)
 			{
-				// TODO: Map the x coordinate into the range minX to maxX
-				double x0 = ((double)pixelX / (double)windowWidth) * (maxX - minX) + minX;
-
-				//std::cout << "\n PixelX: " << pixelX << " \n PixelY: " << pixelY;
-				//std::cout << "\n x0, y0: " << x0 << ", " << y0;
-				//std::cin.get();
+				// Map the x coordinate into the range minX to maxX
+				double x0 = (pixelX / (double)windowWidth) * (maxX - minX) + minX;
 
 				unsigned int pixelPosition = pixelY * (pitch / pixelFormat->BytesPerPixel) + pixelX;
 
@@ -107,43 +112,32 @@ int main(int, char**)
 				currentX = x0;
 				currentY = y0;
 
-				//Set smallestValue start
-				int smallestValue = 9000;
-
 				//Iterate x0 .. x199 and check if it satisfies equation
-				for (int i = 0; i < 50; i++)
+				for (int i = 0; i < iterations; i++)
 				{					
+					//Check algorithm with x and y values
 					if (pow(currentX, 2) + pow(currentY, 2) >= 4)
 					{
-						if (i < smallestValue)
-						{
-							smallestValue = i;
-						}
+						//Calculate colour based on iterations
+						r = (i * 255 / iterations);
+						Uint32 colour = SDL_MapRGB(pixelFormat, r, g, b);
+
+						pixels[pixelPosition] = colour;
+						break;
+					}
+
+					else
+					{
+						pixels[pixelPosition] = black;
 					}
 
 					//Calculate new X and Y	
 					nextX = pow(currentX, 2) - pow(currentY, 2) + x0;
 					nextY = (2 * currentX * currentY) + y0;	
-
+					
 					currentX = nextX;
 					currentY = nextY;
-				}
-								
-
-				//Define colours
-				Uint32 colour = SDL_MapRGB(pixelFormat, 255, 0, 0);
-				Uint32 black = SDL_MapRGB(pixelFormat, 0, 0, 0);
-
-				//Set pixel colours
-				if (smallestValue == 9000)
-				{
-					pixels[pixelPosition] = black;
-				}
-
-				else
-				{
-					pixels[pixelPosition] = colour;
-				}
+				}							
 			}
 		}
 
