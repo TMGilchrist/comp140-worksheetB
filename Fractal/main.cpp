@@ -9,7 +9,9 @@ int main(int, char**)
 	int windowWidth = 800;
 	int windowHeight = 800;
 	//Initialise the Video Part of SDL2
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	
+{
 		//Print out an error message to the screen if this fails
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return 1;
@@ -17,7 +19,8 @@ int main(int, char**)
 
 	//Creare a 800x800 window with the title Fractal
 	SDL_Window *window = SDL_CreateWindow("Fractal", 100, 100, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-	if (window == nullptr) {
+	if (window == nullptr) 
+	{
 		//Print out error if this fails
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		SDL_Quit();
@@ -26,13 +29,15 @@ int main(int, char**)
 
 	//Create a renderer
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr) {
+	if (renderer == nullptr) 
+	{
 		//Print error and cleanup
 		SDL_DestroyWindow(window);
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		SDL_Quit();
 		return 1;
 	}
+
 	//this stores the pixels retrieved from the texture
 	Uint32 * pixels = NULL;
 	//the pitch is the width of the texture in bytes
@@ -54,9 +59,11 @@ int main(int, char**)
 	while (!quit)
 	{
 		//Check for Messages from SDL
-		while (SDL_PollEvent(&event)) {
+		while (SDL_PollEvent(&event)) 
+		{
 			//quit is generated when red cross is clicked
-			if (event.type == SDL_QUIT) {
+			if (event.type == SDL_QUIT) 
+			{
 				quit = true;
 			}
 		}
@@ -70,10 +77,12 @@ int main(int, char**)
 
 
 
-		for (int pixelY = 0; pixelY < windowHeight; pixelY++) {
+		for (int pixelY = 0; pixelY < windowHeight; pixelY++) 
+		{
 			// TODO: Map the y coordinate into the range minY to maxY
 			//double y0 =
-			for (int pixelX = 0; pixelX < windowWidth; pixelX++){
+			for (int pixelX = 0; pixelX < windowWidth; pixelX++)
+			{
 
 				// TODO: Map the x coordinate into the range minX to maxX
 				//double x0 =
